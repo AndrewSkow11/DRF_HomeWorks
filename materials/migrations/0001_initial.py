@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField
-                (max_length=255, verbose_name="название")),
+                ("name", models.CharField(max_length=255,
+                                          verbose_name="название")),
                 (
                     "preview",
                     models.ImageField(
@@ -62,7 +62,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "video",
-                    models.FileField(blank=True, null=True, upload_to="video_lesson"),
+                    models.FileField(blank=True, null=True,
+                                     upload_to="video_lesson"),
                 ),
                 (
                     "course",
