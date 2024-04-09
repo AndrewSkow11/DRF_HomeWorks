@@ -1,0 +1,2 @@
+POSTGRES_PASSWORD=your_password
+EMAIL_HOST_PASSWORD=your_application_password
