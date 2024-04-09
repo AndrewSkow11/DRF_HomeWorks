@@ -1,19 +1,29 @@
 from django.db import models
+# 1. Пользователь:
+# - все поля от обычного пользователя, но авторизацию заменить на email;
+# - телефон;
+# - город;
+# - аватарка.
+
+from django.contrib.auth.models import AbstractUser
+
+NULLABLE = {
+    "blank": True,
+    "null": True,
+}
 
 
-class Course(models.Model):
-    name = models.CharField(max_length=255, verbose_name='название')
-    preview = models.ImageField(upload_to='course_preview',
-                                verbose_name='превью', null=True, blank=True)
-    description = models.TextField(verbose_name='описание')
+class User(AbstractUser):
+    username = None
 
+    email = models.EmailField(unique=True, verbose_name="email")
 
-class Lesson(models.Model):
-    course = models.ForeignKey(Course, verbose_name='крус',
-                               related_name='course',
-                               on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=255, verbose_name='название')
-    description = models.TextField(verbose_name='описание')
-    preview = models.ImageField(upload_to='lesson_preview',
-                                verbose_name='превью', null=True, blank=True)
-    video = models.FileField(upload_to='video_lesson', blank=True, null=True)
+    avatar = models.ImageField(upload_to="users/",
+                               verbose_name="аватар", **NULLABLE)
+    phone_number = models.CharField(
+        max_length=35, verbose_name="номер телефона", **NULLABLE)
+    city = models.CharField(max_length=255, verbose_name="город",
+                               **NULLABLE)
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
