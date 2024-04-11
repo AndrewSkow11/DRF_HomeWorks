@@ -37,7 +37,7 @@ class Payment(models.Model):
         SPENDING = 'spending', 'перевод на счет'
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL,
-                             related_name='user',
+                             related_name='payment',
                              verbose_name='пользователь',
                              null=True, blank=True)
     date = models.DateField(auto_now=True, verbose_name='дата оплаты')

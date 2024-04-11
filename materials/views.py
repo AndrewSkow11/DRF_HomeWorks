@@ -7,8 +7,6 @@ from rest_framework.generics import (
     ListAPIView,
 )
 
-
-
 from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
 
@@ -41,5 +39,3 @@ class LessonUpdateAPIView(UpdateAPIView):
 class LessonDestroyAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-
-
