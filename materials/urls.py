@@ -5,8 +5,7 @@ from materials.views import (
     LessonUpdateAPIView,
     LessonRetrieveAPIView,
     LessonCreateAPIView,
-    CourseAPIViewSet,
-)
+    CourseAPIViewSet)
 from rest_framework import routers
 
 router = routers.SimpleRouter()
@@ -26,4 +25,5 @@ urlpatterns = [
                       "lesson/delete/<int:pk>/",
                       LessonDestroyAPIView.as_view(),
                       name="lesson_destroy"),
+
               ] + router.urls
