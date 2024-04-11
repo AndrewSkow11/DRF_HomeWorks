@@ -43,7 +43,7 @@ class Payment(models.Model):
     date = models.DateField(auto_now=True, verbose_name='дата оплаты')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL,
                                verbose_name='оплаченный курс', null=True,
-                               blank=True )
+                               blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL,
                                verbose_name='оплаченный урок',
                                null=True, blank=True)
@@ -56,3 +56,5 @@ class Payment(models.Model):
         verbose_name = 'оплата'
         verbose_name_plural = 'оплаты'
         ordering = ('user', 'date')
+
+

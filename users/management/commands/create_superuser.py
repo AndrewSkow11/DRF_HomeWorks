@@ -18,4 +18,3 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Суперпользователь создан\n"
                                              "admin@admin.ru\n"
                                              "1234"))
-
