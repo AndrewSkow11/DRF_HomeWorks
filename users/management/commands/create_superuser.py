@@ -10,8 +10,7 @@ class Command(BaseCommand):
             last_name='Adminov',
             is_superuser=True,
             is_staff=True,
-            is_active=True
-        )
+            is_active=True)
         user.set_password('1234')
         user.save()
 
