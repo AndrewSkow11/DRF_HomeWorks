@@ -12,11 +12,11 @@ class IsModerator():
         return False
 
 
-class IsAuthor():
+class IsOwnerOrStaff(BasePermission):
     message = "Вы не являетесь владельцем!"
 
-    def has_object_permission(self, request, view, obj):
-        if request.user == obj.user:
+    def has_permission(self, request, view):
+        if request.user.is_staff:
             return True
-        else:
-            return False
+        return request.user == view.get_object().owner
+
