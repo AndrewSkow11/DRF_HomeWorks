@@ -25,3 +25,10 @@ class UserSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password', 'is_active']
+
+    def create(self, validated_data):
+        user = User(**validated_data)
+        # Hash the user's password.
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
