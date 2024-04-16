@@ -4,22 +4,30 @@ from rest_framework.generics import (
     RetrieveAPIView,
     UpdateAPIView,
     DestroyAPIView,
-    ListAPIView)
+    ListAPIView,
+)
 from materials.models import Course, Lesson
 from materials.permissions import IsModerator, IsOwner
 from materials.serializers import CourseSerializer, LessonSerializer
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 
 class CourseAPIViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_permissions(self):
-        if self.action == 'create' or self.action == 'list':
+        if self.action == "create" or self.action == "list":
             self.permission_classes = [IsAuthenticated]
-        elif self.action == 'update' or self.action == 'partial_update' or self.action == 'destroy' or self.action == 'retrieve':
+        elif (
+            self.action == "update"
+            or self.action == "partial_update"
+            or self.action == "destroy"
+            or self.action == "retrieve"
+        ):
             self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
         return super().get_permissions()
 
@@ -27,7 +35,9 @@ class CourseAPIViewSet(ModelViewSet):
 class LessonCreateAPIView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def perform_create(self, serializer):
         new_lesson = serializer.save()
@@ -38,7 +48,9 @@ class LessonCreateAPIView(CreateAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
 
 class LessonRetrieveAPIView(RetrieveAPIView):
