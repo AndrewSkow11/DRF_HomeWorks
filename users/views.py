@@ -6,10 +6,8 @@ import django_filters.rest_framework
 
 from rest_framework.generics import (
     CreateAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-    DestroyAPIView,
     ListAPIView,
+    RetrieveUpdateDestroyAPIView
 )
 
 
@@ -35,3 +33,10 @@ class UserListAPIView(ListAPIView):
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+
+
+class RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
