@@ -1,22 +1,19 @@
 from rest_framework.permissions import BasePermission
 
-from users.models import UserRoles
 
-
-class IsModerator():
+class IsModerator(BasePermission):
     message = "Вы не являетесь модератором"
 
     def has_permission(self, request, view):
-        if request.user.role == UserRoles.MODERATOR:
+        if request.user.groups.filter(name='moderator').exists():
             return True
         return False
 
 
-class IsOwnerOrStaff(BasePermission):
+class IsOwner(BasePermission):
     message = "Вы не являетесь владельцем!"
 
     def has_permission(self, request, view):
-        if request.user.is_staff:
+        if request.user == view.get_object().owner:
             return True
-        return request.user == view.get_object().owner
-
+        return False
