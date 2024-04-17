@@ -1,2 +1,6 @@
-POSTGRES_PASSWORD=your_password
-EMAIL_HOST_PASSWORD=your_application_password
+SECRET_KEY=
+
+ENGINE_P=
+NAME_P=
+USER_P=
+POSTGRES_PASSWORD=

@@ -18,7 +18,6 @@ load_dotenv()
 env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
 
-password_db = os.getenv("POSTGRES_PASSWORD")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-rw&6&60l@)" \
-             "h8vd9#oeoh3_%x@-prx!^394aqnhfavmd%q2q^#="
-
+SECRET_KEY = os.getenv("SECRET_KEY")
+print(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -87,13 +85,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "db_for_drf",
-        "USER": "postgres",
-        # 'PORT': 5432,
-        "PASSWORD": password_db,
+        "ENGINE": os.getenv("ENGINE_P"),
+        "NAME": os.getenv("NAME_P"),
+        "USER": os.getenv("USER_P"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
