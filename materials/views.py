@@ -20,23 +20,23 @@ class CourseAPIViewSet(ModelViewSet):
     ]
 
     def get_permissions(self):
-        if self.action == "create" or self.action == "list":
-            self.permission_classes = [IsAuthenticated]
-        elif (
-            self.action == "update"
-            or self.action == "partial_update"
-            or self.action == "destroy"
-            or self.action == "retrieve"
-        ):
-            self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
-        return super().get_permissions()
-
+        if self.action == 'create':
+            self.permission_classes = [IsAuthenticated, ~IsModerator]
+        elif self.action == 'list':
+            self.permission_classes = [IsAuthenticated, IsOwner | IsModerator]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated, IsOwner | IsModerator]
+        elif self.action == 'update':
+            self.permission_classes = [IsAuthenticated, IsOwner | IsModerator]
+        elif self.action == 'destroy':
+            self.permission_classes = [IsAuthenticated, IsOwner]
+        return [permission() for permission in self.permission_classes]
 
 class LessonCreateAPIView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticated, ~IsModerator
     ]
 
     def perform_create(self, serializer):
