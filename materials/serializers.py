@@ -33,4 +33,3 @@ class CourseSerializer(serializers.ModelSerializer):
         course.owner = user
         course.save()
         return course
-
