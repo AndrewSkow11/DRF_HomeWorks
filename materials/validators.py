@@ -19,7 +19,7 @@ import re
 
 from rest_framework.serializers import ValidationError
 
-allowed_resource = 'youtube.com/watch'
+allowed_resource = 'youtube.com'
 
 
 def validate_url_resource(value):
