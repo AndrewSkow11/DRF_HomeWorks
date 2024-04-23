@@ -1,11 +1,10 @@
 from rest_framework import serializers
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, CourseSubscription
 from materials.validators import validate_url_resource
 
 
 class LessonSerializer(serializers.ModelSerializer):
-
     video = serializers.CharField(validators=[validate_url_resource])
 
     class Meta:
@@ -37,3 +36,9 @@ class CourseSerializer(serializers.ModelSerializer):
         course.owner = user
         course.save()
         return course
+
+
+class CourseSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = CourseSubscription
+        fields = '__all__'
