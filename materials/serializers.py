@@ -22,6 +22,13 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     lessons_count = serializers.SerializerMethodField()
     lesson = LessonSerializer(many=True, read_only=True)
+    course_subscribe = serializers.SerializerMethodField
+
+    def get_course_subscribe(self, obj):
+        return CourseSubscription.object.filter(
+            course_subscribe=obj,
+            user=self.context['request'].user).exists()
+
 
     def get_lessons_count(self, instance):
         return instance.lesson.count()
@@ -30,12 +37,12 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = "__all__"
 
-    def create(self, validated_data):
-        user = self.context['request'].user
-        course = Course(**validated_data)
-        course.owner = user
-        course.save()
-        return course
+    # def create(self, validated_data):
+    #     user = self.context['request'].user
+    #     course = Course(**validated_data)
+    #     course.owner = user
+    #     course.save()
+    #     return course
 
 
 class CourseSubscriptionSerializer(serializers.ModelSerializer):

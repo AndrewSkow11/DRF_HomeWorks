@@ -66,7 +66,7 @@ class Lesson(models.Model):
 
 
 class CourseSubscription(models.Model):
-    users = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name="подписчик",
@@ -81,3 +81,6 @@ class CourseSubscription(models.Model):
     class Meta:
         verbose_name = 'подписка на курс'
         verbose_name_plural = "подписки на курс"
+
+    def __str__(self):
+        return f'{self.user} {self.course}'

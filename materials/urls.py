@@ -6,16 +6,13 @@ from materials.views import (
     LessonRetrieveAPIView,
     LessonCreateAPIView,
     CourseAPIViewSet,
-    SubscribeCourseAPIViewSet
+    SubscribtionCourseAPIView
 )
 from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register("course", CourseAPIViewSet)
-router.register("subscribe", SubscribeCourseAPIViewSet)
 
-# routerSubscribe = routers.SimpleRouter
-# routerSubscribe.register = ("subscribe", SubscribeCourseAPIViewSet)
 
 urlpatterns = ([path("lessons/", LessonListAPIView.as_view(),
                      name="lesson_list"),
@@ -36,4 +33,9 @@ urlpatterns = ([path("lessons/", LessonListAPIView.as_view(),
                     "lesson/<int:pk>/delete/",
                     LessonDestroyAPIView.as_view(),
                     name="lesson_destroy"),
+                path(
+                    'subscription/',
+                    SubscribtionCourseAPIView.as_view(),
+                    name='subscription'),
+
                 ] + router.urls)
