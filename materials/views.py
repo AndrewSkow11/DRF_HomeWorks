@@ -8,6 +8,7 @@ from rest_framework.generics import (
 )
 from rest_framework.views import APIView
 from materials.models import Course, Lesson, CourseSubscription
+from materials.paginations import LessonCoursePaginator
 from materials.permissions import IsModerator, IsOwner
 from materials.serializers import CourseSerializer, LessonSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -20,6 +21,7 @@ class CourseAPIViewSet(ModelViewSet):
     permission_classes = [
         IsAuthenticated,
     ]
+    pagination_class = LessonCoursePaginator
 
     def get_permissions(self):
         if self.action == 'create':
@@ -33,12 +35,6 @@ class CourseAPIViewSet(ModelViewSet):
         elif self.action == 'destroy':
             self.permission_classes = [IsAuthenticated, IsOwner, ~IsModerator]
         return [permission() for permission in self.permission_classes]
-
-    def get_queryset(self):
-        my_queryset = Course.objects.all()
-        if not self.request.user.is_moderator:
-            my_queryset = my_queryset.owner(self.request.user)
-        return my_queryset
 
 
 class LessonCreateAPIView(CreateAPIView):
@@ -59,6 +55,7 @@ class LessonListAPIView(ListAPIView):
     permission_classes = [
         IsAuthenticated,
     ]
+    pagination_class = LessonCoursePaginator
 
     def get_queryset(self):
         if self.request.user.groups.filter(name='moderator').exists():
