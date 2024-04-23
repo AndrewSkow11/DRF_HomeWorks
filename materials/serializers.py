@@ -40,5 +40,5 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
-        models = CourseSubscription
+        model = CourseSubscription
         fields = '__all__'
