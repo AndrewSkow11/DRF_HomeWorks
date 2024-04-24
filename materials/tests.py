@@ -48,8 +48,18 @@ class LessonTestCase(APITestCase):
 
         self.assertEquals(
             response.json(),
-            {'count': 1, 'next': None, 'previous': None, 'results': [
-                {'id': 1, 'video': '', 'name': 'Lesson for testing', 'description': 'Smth about lesson 1',
-                 'preview': None, 'course': None, 'owner': 1}]}
+            {
+                'count': 1,
+                'next': None,
+                'previous': None,
+                'results': [
+                    {
+                        'id': self.lesson.id,
+                        'video': '',
+                        'name': self.lesson.name,
+                        'description': self.lesson.description,
+                        'preview': None,
+                        'course': None,
+                        'owner': self.user.id}]}
 
         )
