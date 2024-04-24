@@ -3,6 +3,12 @@ from rest_framework.serializers import ValidationError
 allowed_resource = 'youtube.com'
 
 
-def validate_url_resource(value):
-    if allowed_resource not in value:
-        raise ValidationError("Разрешены ссылки только на youtube.com")
+class ValidateURLResource():
+
+    def __init__(self, field):
+        self.field = field
+
+    def __call__(self, value):
+        url = value.get(self.field)
+        if url and not url.startswith('https://www.youtube.com/'):
+            raise ValueError('Ссылки на сторонние видео запрещены')

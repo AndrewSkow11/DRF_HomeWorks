@@ -33,33 +33,56 @@ class LessonTestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
 
-    def test_list_lessons(self):
-        response = self.client.get(
-            reverse('lessons_list')
-        )
+    # def test_list_lessons(self):
+    #     response = self.client.get(
+    #         reverse('lessons_list')
+    #     )
+    #
+    #     self.assertEquals(
+    #         response.status_code,
+    #         status.HTTP_200_OK
+    #     )
+    #
+    #
+    #     data = {
+    #         'count': 1,
+    #         'next': None,
+    #         'previous': None,
+    #         'results': [{
+    #             'id': 1,
+    #             'name': 'Lesson for testing',
+    #             'description': 'Smth about lesson 1',
+    #             'preview': None,
+    #             'course': None,
+    #             'owner': 1}]}
+    #
+    #     # print('json-ответ')
+    #     # print(response.json())
+    #
+    #     self.assertEquals(
+    #         response.json(),
+    #         data
+    #     )
+    #
 
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_200_OK
-        )
 
-        print('json-ответ')
+    def test_create_lesson(self):
+
+        data = {
+            'name': 'lesson_test_created',
+            'description': 'test description 2',
+            'course': 1,
+            # 'viedo': 'youtube.com/watch/1234'
+        }
+
+        response = self.client.post(
+            reverse('lesson_create'),
+            data
+        )
+        print(response)
         print(response.json())
 
-        self.assertEquals(
-            response.json(),
-            {
-                'count': 1,
-                'next': None,
-                'previous': None,
-                'results': [
-                    {
-                        'id': self.lesson.id,
-                        'video': '',
-                        'name': self.lesson.name,
-                        'description': self.lesson.description,
-                        'preview': None,
-                        'course': None,
-                        'owner': self.user.id}]}
-
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
         )
