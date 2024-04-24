@@ -27,6 +27,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = "курс"
         verbose_name_plural = "курсы"
+        ordering = ("name",)
 
 
 class Lesson(models.Model):
@@ -46,10 +47,10 @@ class Lesson(models.Model):
         verbose_name="превью",
         null=True,
         blank=True)
-    # video = models.FileField(
-    #     upload_to="video_lesson",
-    #     blank=True,
-    #     null=True)
+    video = models.FileField(
+        upload_to="video_lesson",
+        blank=True,
+        null=True)
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -63,6 +64,8 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "урок"
         verbose_name_plural = "уроки"
+        ordering = ("name",)
+
 
 
 class CourseSubscription(models.Model):
@@ -81,6 +84,7 @@ class CourseSubscription(models.Model):
     class Meta:
         verbose_name = 'подписка на курс'
         verbose_name_plural = "подписки на курс"
+
 
     def __str__(self):
         return f'{self.user} {self.course}'

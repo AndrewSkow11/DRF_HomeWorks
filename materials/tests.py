@@ -33,37 +33,6 @@ class LessonTestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
 
-    # def test_list_lessons(self):
-    #     response = self.client.get(
-    #         reverse('lessons_list')
-    #     )
-    #
-    #     self.assertEquals(
-    #         response.status_code,
-    #         status.HTTP_200_OK
-    #     )
-    #
-    #
-    #     data = {
-    #         'count': 1,
-    #         'next': None,
-    #         'previous': None,
-    #         'results': [{
-    #             'id': 1,
-    #             'name': 'Lesson for testing',
-    #             'description': 'Smth about lesson 1',
-    #             'preview': None,
-    #             'course': None,
-    #             'owner': 1}]}
-    #
-    #     # print('json-ответ')
-    #     # print(response.json())
-    #
-    #     self.assertEquals(
-    #         response.json(),
-    #         data
-    #     )
-    #
 
 
     def test_create_lesson(self):
@@ -72,15 +41,16 @@ class LessonTestCase(APITestCase):
             'name': 'lesson_test_created',
             'description': 'test description 2',
             'course': 1,
-            # 'viedo': 'youtube.com/watch/1234'
         }
 
         response = self.client.post(
             reverse('lesson_create'),
             data
         )
-        print(response)
-        print(response.json())
+
+
+        # print(response)
+        # print(response.json())
 
         self.assertEqual(
             response.status_code,
