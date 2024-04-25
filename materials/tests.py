@@ -32,7 +32,6 @@ class LessonsTest(APITestCase):
     def test_list_lesson(self):
         """READ (LIST) TEST"""
         response = self.client.get('/materials/lessons/')
-        print(response.json())
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.json(), {
             'count': 1,
@@ -131,7 +130,6 @@ class SubscriptionTestCase(APITestCase):
         response = self.client.post('/materials/subscription/',
             data=data)
 
-        print(response.json())
 
         self.assertEquals(
             response.status_code,
