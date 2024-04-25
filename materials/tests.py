@@ -140,3 +140,14 @@ class SubscriptionTestCase(APITestCase):
             response.json(),
             'подписка добавлена'
         )
+
+# (venv) andrejskovorodnikov@MacBook-Air-Andrej DRF_HomeWorks % python3 manage.py test
+# Found 6 test(s).
+# Creating test database for alias 'default'...
+# System check identified no issues (0 silenced).
+# ......
+# ----------------------------------------------------------------------
+# Ran 6 tests in 1.089s
+#
+# OK
+# Destroying test database for alias 'default'...
