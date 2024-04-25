@@ -33,6 +33,14 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_lessons_count(self, instance):
         return instance.lesson.count()
 
+    def create(self, validated_data):
+        user = self.context['request'].user
+        course = Course(**validated_data)
+        course.owner = user
+        course.save()
+        return course
+
+
     class Meta:
         model = Course
         fields = "__all__"
