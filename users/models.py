@@ -56,16 +56,33 @@ class Payment(models.Model):
         verbose_name='оплаченный урок',
         null=True,
         blank=True)
-    amount = models.DecimalField(
-        max_digits=8,
-        decimal_places=2,
+    amount = models.PositiveIntegerField(
         verbose_name='сумма оплаты')
     payment_type = models.CharField(
         max_length=32,
         choices=PaymentType.choices,
         verbose_name='способ оплаты')
+    sessions_id = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+        verbose_name='id сессии',
+        help_text='укажите id сессии'
+    )
+    link = models.URLField(
+        max_length=512,
+        blank=True,
+        null=True,
+        verbose_name='ссылка на оплату',
+        help_text='укажите ссылку на оплату'
+    )
 
     class Meta:
         verbose_name = 'оплата'
         verbose_name_plural = 'оплаты'
         ordering = ('user', 'date')
+
+    def __str__(self):
+        return (f'Пользователь: {self.user}\n'
+                f'Курс:  {self.course}\n'
+                f'Сумма: {self.amount}')

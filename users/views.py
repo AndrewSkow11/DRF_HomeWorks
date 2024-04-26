@@ -5,12 +5,12 @@ from users.serializers import (
     UserPaymentSerializer,
     PaymentSerializer,
     UserSerializer,
-    UserSerializerCreate,
+    UserSerializerCreate, PaymentApiSerializer,
 )
 from rest_framework.filters import SearchFilter
 import django_filters.rest_framework
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from rest_framework.generics import CreateAPIView
 
 from rest_framework.generics import (
     CreateAPIView,
@@ -52,3 +52,12 @@ class UserRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsOwnerOrStaff]
+
+
+class PaymentApiView(CreateAPIView):
+    serializer_class = PaymentApiSerializer
+    queryset = Payment.objects.all()
+
+    def perform_create(self, serializer):
+        pass
+
