@@ -50,7 +50,8 @@ class Lesson(models.Model):
     video = models.FileField(
         upload_to="video_lesson",
         blank=True,
-        null=True)
+        null=True,
+        verbose_name='видео')
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
