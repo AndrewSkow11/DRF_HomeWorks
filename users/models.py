@@ -61,9 +61,11 @@ class Payment(models.Model):
     payment_type = models.CharField(
         max_length=32,
         choices=PaymentType.choices,
-        verbose_name='способ оплаты')
+        verbose_name='способ оплаты',
+        blank=True,
+        null=True)
     sessions_id = models.CharField(
-        max_length=64,
+        max_length=512,
         blank=True,
         null=True,
         verbose_name='id сессии',

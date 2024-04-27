@@ -10,7 +10,7 @@ from users.views import (
     PaymentlListView,
     UserRetrieveUpdateDestroy,
     UserCreateAPIView,
-    UserListAPIView,
+    UserListAPIView, PaymentApiView,
 )
 
 app_name = UsersConfig.name
@@ -27,5 +27,7 @@ urlpatterns = [
     # Read, Update, Delete
     path("list/", UserListAPIView.as_view(), name="users_list"),
     path("<int:pk>/", UserRetrieveUpdateDestroy.as_view(), name="users_rud"),
+    # url для работы с опалтой
+    path("payment/", PaymentApiView.as_view(), name="payment")
 ]
 urlpatterns += router.urls

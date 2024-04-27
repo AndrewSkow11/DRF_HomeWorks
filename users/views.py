@@ -18,6 +18,8 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
 )
 
+from users.services import create_stripe_price, create_stripe_product, create_stripe_sessions
+
 
 class UsersPaymentsAPIViewSet(ModelViewSet):
     queryset = User.objects.all()
@@ -59,5 +61,13 @@ class PaymentApiView(CreateAPIView):
     queryset = Payment.objects.all()
 
     def perform_create(self, serializer):
-        pass
+        payment = serializer.save(user=self.request.user)
 
+        product_stripe = create_stripe_product(payment)
+        price_stripe = create_stripe_price(payment.amount, product_stripe)
+
+        session_id, payment_link = create_stripe_sessions(price_stripe)
+        payment.sessions_id = session_id
+        payment.link = payment_link
+
+        payment.save()
