@@ -46,8 +46,11 @@ class CourseAPIViewSet(ModelViewSet):
         course = serializer.save()
         course_id = course.id
 
-        # send_info_about_update_course.delay(course_id)
-        send_info_about_update_course(course_id)
+        # sending mail with celery
+        send_info_about_update_course.delay(course_id)
+
+        # sending mail without celery
+        # send_info_about_update_course(course_id)
 
 
 class LessonCreateAPIView(CreateAPIView):

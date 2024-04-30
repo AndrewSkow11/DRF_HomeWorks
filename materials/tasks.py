@@ -7,9 +7,7 @@ from materials.models import Course, CourseSubscription
 def send_info_about_update_course(course_id):
     print("Отправка письма ...")
     course = Course.objects.get(pk=course_id)
-    print(course)
     course_users = CourseSubscription.objects.filter(course=course_id)
-    print(course_users)
     for user in course_users:
         send_mail(
             subject=f'{course.name}',
@@ -18,3 +16,5 @@ def send_info_about_update_course(course_id):
             recipient_list=[f'{user.user}'],
             fail_silently=True
         )
+
+
