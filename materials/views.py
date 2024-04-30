@@ -1,5 +1,8 @@
+from datetime import timezone
+
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import (
     CreateAPIView,
@@ -16,9 +19,8 @@ from materials.serializers import CourseSerializer, LessonSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-# @method_decorator(name='list', decorator=swagger_auto_schema(
-#     operation_description="description from swagger_auto_schema via method_decorator"
-# ))
+from materials.tasks import send_info_about_update_course
+
 class CourseAPIViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -39,6 +41,13 @@ class CourseAPIViewSet(ModelViewSet):
         elif self.action == 'destroy':
             self.permission_classes = [IsAuthenticated, IsOwner, ~IsModerator]
         return [permission() for permission in self.permission_classes]
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        course_id = course.id
+
+        # send_info_about_update_course.delay(course_id)
+        send_info_about_update_course(course_id)
 
 
 class LessonCreateAPIView(CreateAPIView):
