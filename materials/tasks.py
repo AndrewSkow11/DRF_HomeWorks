@@ -3,6 +3,7 @@ from config import settings
 from django.core.mail import send_mail
 from materials.models import Course, CourseSubscription
 
+
 @shared_task
 def send_info_about_update_course(course_id):
     print("Отправка письма ...")
@@ -16,5 +17,3 @@ def send_info_about_update_course(course_id):
             recipient_list=[f'{user.user}'],
             fail_silently=True
         )
-
-

@@ -27,4 +27,9 @@ redis-server
 celery -A config worker -l INFO
 ```
 
+### celery - beat 
+```commandline
+celery -A config worker --beat --scheduler django --loglevel=info
+```
+
 https://docs.stripe.com/terminal/references/testing#standard-test-cards карты для тестирования платежей 
