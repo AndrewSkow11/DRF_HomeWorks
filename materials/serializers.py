@@ -5,7 +5,6 @@ from materials.validators import ValidateURLResource
 
 
 class LessonSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Lesson
         fields = "__all__"
@@ -26,10 +25,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_course_subscribe(self, instance):
         user = self.context['request'].user
-        if CourseSubscription.objects.filter(user=user, course=instance).exists():
+        if CourseSubscription.objects.filter(user=user,
+                                             course=instance).exists():
             return True
         return False
-
 
     def get_lessons_count(self, instance):
         return instance.lesson.count()
@@ -41,11 +40,9 @@ class CourseSerializer(serializers.ModelSerializer):
         course.save()
         return course
 
-
     class Meta:
         model = Course
         fields = "__all__"
-
 
 
 class CourseSubscriptionSerializer(serializers.ModelSerializer):

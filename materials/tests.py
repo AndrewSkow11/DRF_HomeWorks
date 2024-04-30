@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-from materials.models import Lesson, Course, CourseSubscription
+from materials.models import Lesson, Course
 from users.models import User
 
 
@@ -121,15 +121,12 @@ class SubscriptionTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
     def test_subscribe_to_course(self):
-
         data = {
             "user": self.user.id,
             "course": self.course.id,
         }
 
-        response = self.client.post('/materials/subscription/',
-            data=data)
-
+        response = self.client.post('/materials/subscription/', data=data)
 
         self.assertEquals(
             response.status_code,
@@ -141,7 +138,8 @@ class SubscriptionTestCase(APITestCase):
             'подписка добавлена'
         )
 
-# (venv) andrejskovorodnikov@MacBook-Air-Andrej DRF_HomeWorks % python3 manage.py test
+# (venv) andrejskovorodnikov@MacBook-Air-Andrej DRF_HomeWorks %
+# python3 manage.py test
 # Found 6 test(s).
 # Creating test database for alias 'default'...
 # System check identified no issues (0 silenced).

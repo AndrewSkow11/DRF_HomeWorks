@@ -7,9 +7,9 @@ from users.models import User
 @shared_task
 def check_user_activity():
     """Функция блокировки: если пользователь не заходил более месяца"""
-    users = User.objects.all()
+    users = User.objects.filter(is_active=True)
     for user in users:
-        if user.last_login and not user.is_active:
+        if user.last_login:
             if user.last_login < timezone.now() - timezone.timedelta(days=30):
                 user.is_active = False
                 user.save()

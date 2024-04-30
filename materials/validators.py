@@ -1,5 +1,3 @@
-from rest_framework.serializers import ValidationError
-
 allowed_resource = 'youtube.com'
 
 

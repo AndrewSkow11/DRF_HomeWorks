@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 from datetime import timedelta
 
 from dotenv import load_dotenv
@@ -44,11 +45,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "materials",
     "users",
-    'django_filters',
-    'rest_framework_simplejwt',
-    'drf_yasg',
-    'drf_spectacular',
-    'django_celery_beat',
+    "django_filters",
+    "rest_framework_simplejwt",
+    "drf_yasg",
+    "drf_spectacular",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -99,7 +100,7 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation"
-                ".UserAttributeSimilarityValidator",
+        ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation"
@@ -138,19 +139,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
     ],
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
@@ -159,19 +157,19 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Your Project API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
 
-STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 
 # Настройки для Celery
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = TIME_ZONE
@@ -182,18 +180,19 @@ CELERY_TASK_TRACK_STARTED = True
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 CELERY_BEAT_SCHEDULE = {
-    'task-name': {
-        'task': 'users.tasks.check_user_activity',  # Путь к задаче
+    "task-name": {
+        "task": "users.tasks.check_user_activity",  # Путь к задаче
         # Расписание выполнения задачи (например, каждые 10 минут)
-        'schedule': timedelta(days=1),
-        # 'schedule': timedelta(seconds=5),
+        # "schedule": timedelta(days=1),
+        # для теста оставляю проверку каждые 5 секунд
+        'schedule': timedelta(seconds=5),
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

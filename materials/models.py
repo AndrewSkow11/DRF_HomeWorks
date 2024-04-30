@@ -68,7 +68,6 @@ class Lesson(models.Model):
         ordering = ("name",)
 
 
-
 class CourseSubscription(models.Model):
     user = models.ForeignKey(
         User,
@@ -85,7 +84,6 @@ class CourseSubscription(models.Model):
     class Meta:
         verbose_name = 'подписка на курс'
         verbose_name_plural = "подписки на курс"
-
 
     def __str__(self):
         return f'{self.user} {self.course}'

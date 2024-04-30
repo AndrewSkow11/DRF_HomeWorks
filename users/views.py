@@ -10,7 +10,6 @@ from users.serializers import (
 from rest_framework.filters import SearchFilter
 import django_filters.rest_framework
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.generics import CreateAPIView
 
 from rest_framework.generics import (
     CreateAPIView,
@@ -18,7 +17,8 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
 )
 
-from users.services import create_stripe_price, create_stripe_product, create_stripe_sessions
+from users.services import (create_stripe_price, create_stripe_product,
+                            create_stripe_sessions)
 
 
 class UsersPaymentsAPIViewSet(ModelViewSet):
