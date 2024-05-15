@@ -6,12 +6,17 @@
 
 Команды необходимо запускать, находясь в корневой папке проекта.
 
-### запуск docker-compose
-```commandline
-docker-compose up -d --build
-```
+### Сборка образов
+```docker-compose build```
 
-### остановка и удаление контейнеров
-```commandline
-docker-compose down 
-```
+### Запуск контейнеров
+```docker-compose up```
+
+### Запуск контейнеров в фоне
+```docker-compose up -d```
+
+### Сборка образа и запуск в фоне после успешной сборки
+```docker-compose up -d —build```
+
+### Выполнение команды <command> внутри контейнера <app>
+```docker-compose exec <app> <command>```
