@@ -32,4 +32,9 @@ celery -A config worker -l INFO
 celery -A config worker --beat --scheduler django --loglevel=info
 ```
 
+### запуск docker
+```commandline
+docker-compose up -d --build
+```
+
 https://docs.stripe.com/terminal/references/testing#standard-test-cards карты для тестирования платежей 
