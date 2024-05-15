@@ -1,40 +1,17 @@
-# DRF_HomeWorks
+# DRF_HomeWorks (in Docker)
 
-Учебный проект по работе с курсами (API)
+Проект подлежит для использования в Docker.
 
-## Команды при работе с проектом 
+Необходимо установить Docker Desktop перед началом работы, все необходимые файлы для сборки есть в проекте.
 
-### Установка всех зависимостей из файла
-```commandline
-pip install -r requirements.txt
-```
-### Тестирование (отчёт о покрытии)
-```commandline
-coverage run --source='.' manage.py test
-```
+Команды необходимо запускать, находясь в корневой папке проекта.
 
-```commandline
-coverage report
-```
-
-### Запуск сервера redis 
-```commandline
-redis-server
-```
-
-### Запуск celery
-```commandline
-celery -A config worker -l INFO
-```
-
-### celery - beat 
-```commandline
-celery -A config worker --beat --scheduler django --loglevel=info
-```
-
-### запуск docker
+### запуск docker-compose
 ```commandline
 docker-compose up -d --build
 ```
 
-https://docs.stripe.com/terminal/references/testing#standard-test-cards карты для тестирования платежей 
+### остановка и удаление контейнеров
+```commandline
+docker-compose down 
+```
